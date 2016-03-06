@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block page_content %}
+    {% for domian in list %}
+        <li>{{ domian.domain }}</li>
+        {% for ip in domian.ips %}
+            {% if ip.province_name %}
+                <li> {{ ip.ip }} {{ ip.province_name }}</li>
+            {% else %}
+                <li> {{ ip.ip }} {{ ip.priority }}</li>
+            {% endif %}
+        {% endfor %}
+        <br>
+        <br>
+    {% endfor %}
+{% endblock %}

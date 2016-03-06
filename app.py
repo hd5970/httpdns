@@ -6,13 +6,14 @@ from flask import Flask
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.moment import Moment
 from flask.ext.sqlalchemy import SQLAlchemy
-
 from config import config
+from flask.ext.redis import FlaskRedis
 
 bootstrap = Bootstrap()
 moment = Moment()
 db = SQLAlchemy()
 celery = Celery(__name__, broker=os.environ.get('CELERY_BROKER_URL') or 'redis://localhost:6379')
+redis_store = FlaskRedis()
 
 
 def create_app(config_name):
@@ -22,8 +23,14 @@ def create_app(config_name):
     bootstrap.init_app(app)
     moment.init_app(app)
     db.init_app(app)
+    redis_store.init_app(app)
     # celery.conf.update(app.config)
     from main import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
-
+    from api import api as api_blueprint
+    app.register_blueprint(api_blueprint, url_prefix='/')
     return app
+
+
+
+

@@ -11,7 +11,7 @@ class Config:
     WHOOSH_BASE = os.path.join(basedir, 'search.db')
     CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL') or 'redis://localhost:6379'
     BOOTSTRAP_SERVE_LOCAL = True
-
+    REDIS_URL = "redis://localhost:6379/0"
     # SERVER_NAME = os.environ.get('SERVER_NAME') or 'dns.sunqi.me'
 
     @staticmethod

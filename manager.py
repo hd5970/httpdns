@@ -2,11 +2,16 @@
 # -*- coding: utf-8 -*-
 import os
 
-from app import create_app, db
+from app import create_app, db, redis_store
 from flask.ext.script import Manager, Shell
 from flask.ext.migrate import Migrate, MigrateCommand
 
+from implement import reload_redis
+from models import Province
+
 app = create_app('default')
+with app.app_context():
+    reload_redis()
 manager = Manager(app)
 migrate = Migrate(app, db)
 
@@ -33,7 +38,10 @@ def deploy():
     """Run deployment tasks."""
     db.drop_all()
     db.create_all()
+    Province.insert_provinces()
 
 
 if __name__ == '__main__':
+    # with app.app_context():
+    #     reload_redis()
     manager.run()
