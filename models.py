@@ -1,7 +1,6 @@
 # coding=utf-8
 from app import db
 
-
 class Domain(db.Model):
     __tablename__ = 'domain'
     id = db.Column(db.Integer, primary_key=True)
