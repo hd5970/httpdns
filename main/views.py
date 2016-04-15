@@ -12,6 +12,7 @@ from . import admin
 def index():
     form = AddNameServer.set_provinces()
     if form.validate_on_submit():
+        print form.data
         if not form.priority.data:
             print form.priority.data
             form.priority.data = 1
