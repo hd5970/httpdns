@@ -1,9 +1,9 @@
 # coding=utf-8
 from flask.ext.wtf import Form
 from wtforms import StringField, SubmitField, SelectField, IntegerField
-from wtforms.validators import DataRequired, IPAddress, NumberRange, Email
+from wtforms.validators import DataRequired, IPAddress
 
-from models import get_all_provinces
+from app.models import get_all_provinces
 
 
 class AddNameServer(Form):

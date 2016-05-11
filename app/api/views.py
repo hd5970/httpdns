@@ -1,13 +1,12 @@
 import random
 
-from flask import Flask, render_template, flash, url_for, redirect, request, jsonify, abort
-
-from api import api
-from api.errors import bad_request
-from ip.main import get_ip_locality
+from flask import request, jsonify, abort
 
 from app import redis_store
-from models import Domain, IP
+from app.api import api
+from app.api.errors import bad_request
+from app.ip.main import get_ip_locality
+from app.models import Domain, IP
 
 try:
     import cPickle as pickle
@@ -47,6 +46,8 @@ def a():
             index = random.choice(priority_list)
             result = {domain: ip_list[index],
                       'index': index}
+        else:
+            return bad_request()
         return jsonify(result)
     else:
         return bad_request()

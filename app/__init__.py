@@ -5,9 +5,10 @@ from celery import Celery
 from flask import Flask
 from flask.ext.bootstrap import Bootstrap
 from flask.ext.moment import Moment
-from flask.ext.sqlalchemy import SQLAlchemy
-from config import config
 from flask.ext.redis import FlaskRedis
+from flask.ext.sqlalchemy import SQLAlchemy
+
+from config import config
 
 bootstrap = Bootstrap()
 moment = Moment()
@@ -25,9 +26,9 @@ def create_app(config_name):
     db.init_app(app)
     redis_store.init_app(app)
     # celery.conf.update(app.config)
-    from main import admin as admin_blueprint
+    from app.main import admin as admin_blueprint
     app.register_blueprint(admin_blueprint, url_prefix='/admin')
-    from api import api as api_blueprint
+    from app.api import api as api_blueprint
     app.register_blueprint(api_blueprint, url_prefix='/')
     return app
 

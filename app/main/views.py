@@ -2,9 +2,9 @@
 from flask import render_template, flash, url_for, redirect
 
 from app import db
-from implement import reload_redis
-from main.forms import AddNameServer, data_to_form
-from models import Domain, IP
+from app.implement import reload_redis
+from .forms import AddNameServer, data_to_form
+from app.models import Domain, IP
 from . import admin
 
 
